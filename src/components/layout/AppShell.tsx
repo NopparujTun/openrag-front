@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/AppSidebar";
-import { Topbar } from "@/components/Topbar";
+import { AppSidebar } from "@/components/layout/AppSidebar";
+import { Topbar } from "@/components/layout/Topbar";
 
 export function AppShell() {
   return (

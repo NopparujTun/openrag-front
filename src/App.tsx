@@ -4,7 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { BotsProvider, useBots } from "@/store/bots";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@/components/layout/AppShell";
 import Dashboard from "./pages/Dashboard";
 import Bots from "./pages/Bots";
 import BotOverview from "./pages/BotOverview";

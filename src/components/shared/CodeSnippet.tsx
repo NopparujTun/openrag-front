@@ -12,12 +12,12 @@ export function CodeSnippet({ code, language = "html", className }: { code: stri
     setTimeout(() => setCopied(false), 1500);
   };
   return (
-    <div className={cn("group relative overflow-hidden rounded-lg border bg-[hsl(222,47%,11%)] text-slate-100", className)}>
+    <div className={cn("group relative overflow-hidden rounded-lg border bg-black text-white", className)}>
       <div className="flex items-center justify-between border-b border-white/10 px-3 py-2">
-        <span className="text-[11px] font-medium uppercase tracking-wide text-slate-400">{language}</span>
+        <span className="text-[11px] font-medium uppercase tracking-wide text-white/60">{language}</span>
         <button
           onClick={copy}
-          className="inline-flex items-center gap-1.5 rounded-md border border-white/10 bg-white/5 px-2 py-1 text-xs text-slate-200 hover:bg-white/10"
+          className="inline-flex items-center gap-1.5 rounded-md border border-white/10 bg-white/5 px-2 py-1 text-xs text-white/80 hover:bg-white/10"
         >
           {copied ? <Check className="h-3.5 w-3.5 text-success" /> : <Copy className="h-3.5 w-3.5" />}
           {copied ? "Copied" : "Copy"}

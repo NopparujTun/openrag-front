@@ -13,7 +13,7 @@ import {
   User as UserIcon,
 } from "lucide-react";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
-import { NavLink } from "@/components/NavLink";
+import { NavLink } from "@/components/layout/NavLink";
 import {
   Sidebar,
   SidebarContent,
@@ -77,7 +77,7 @@ export function AppSidebar() {
 
   return (
     <Sidebar collapsible="icon" className="border-r">
-      <SidebarHeader className="border-b">
+      <SidebarHeader>
         <button
           onClick={toggleSidebar}
           aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
@@ -92,7 +92,7 @@ export function AppSidebar() {
           </div>
           {!collapsed && (
             <div className="flex min-w-0 flex-1 flex-col leading-tight">
-              <span className="truncate text-sm font-semibold">YourBot</span>
+              <span className="truncate text-sm font-semibold">OpenRag</span>
               <span className="truncate text-[11px] text-muted-foreground">Workspace</span>
             </div>
           )}
@@ -114,7 +114,7 @@ export function AppSidebar() {
                       to={item.url}
                       end={item.end}
                       className="text-sidebar-foreground"
-                      activeClassName="bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                      activeClassName="bg-black/5 text-sidebar-accent-foreground font-medium"
                     >
                       <item.icon className="h-4 w-4" />
                       <span>{item.title}</span>
@@ -137,7 +137,7 @@ export function AppSidebar() {
                       to={`/bots/${currentBot.id}`}
                       end
                       className="text-sidebar-foreground"
-                      activeClassName="bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                      activeClassName="bg-black/5 text-sidebar-accent-foreground font-medium"
                     >
                       <Bot className="h-4 w-4" />
                       <span className="truncate">{currentBot.name}</span>
@@ -151,7 +151,7 @@ export function AppSidebar() {
                         to={item.url}
                         end={item.end}
                         className="pl-8 text-sidebar-foreground"
-                        activeClassName="bg-sidebar-accent text-sidebar-accent-foreground font-medium"
+                        activeClassName="bg-black/5 text-sidebar-accent-foreground font-medium"
                       >
                         <item.icon className="h-4 w-4" />
                         <span>{item.title}</span>

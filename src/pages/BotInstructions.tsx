@@ -1,6 +1,6 @@
 import { useParams, Navigate } from "react-router-dom";
 import { useBots } from "@/store/bots";
-import { PageHeader } from "@/components/PageHeader";
+import { PageHeader } from "@/components/shared/PageHeader";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import { Save, Loader2 } from "lucide-react";
 
 const examples = [
-  "You are a friendly support agent for SaaS company.",
+  "You are a friendly support bot for SaaS company.",
   "Be concise and cite sources from the knowledge base.",
   "Always ask a clarifying question before suggesting a solution.",
   "If unsure, escalate to a human and collect contact info.",

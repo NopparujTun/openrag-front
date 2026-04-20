@@ -1,7 +1,7 @@
 import { useParams, Navigate } from "react-router-dom";
 import { useBots } from "@/store/bots";
-import { PageHeader } from "@/components/PageHeader";
-import { CodeSnippet } from "@/components/CodeSnippet";
+import { PageHeader } from "@/components/shared/PageHeader";
+import { CodeSnippet } from "@/components/shared/CodeSnippet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MessageSquare, Bot, Loader2 } from "lucide-react";
 
@@ -84,7 +84,7 @@ export default function BotEmbed() {
                   </div>
                   <div className="text-xs">
                     <div className="font-semibold">{bot.name}</div>
-                    <div className="text-[10px] text-green-500">● Online</div>
+                    <div className="text-[10px] text-success">● Online</div>
                   </div>
                 </div>
                 <div className="space-y-2 p-3">

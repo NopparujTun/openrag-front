@@ -1,13 +1,13 @@
 import { useParams, Navigate } from "react-router-dom";
 import { useBots, useBotDocuments } from "@/store/bots";
-import { PageHeader } from "@/components/PageHeader";
+import { PageHeader } from "@/components/shared/PageHeader";
 import { useRef, useState } from "react";
 import { Upload, FileText, Trash2, FileType2, Loader2, Type } from "lucide-react";
-import { StatusBadge } from "@/components/StatusBadge";
+import { StatusBadge } from "@/components/shared/StatusBadge";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toast } from "sonner";
-import { EmptyState } from "@/components/EmptyState";
+import { EmptyState } from "@/components/shared/EmptyState";
 import { cn } from "@/lib/utils";
 import { formatDistanceToNow } from "date-fns";
 import { Input } from "@/components/ui/input";
@@ -45,8 +45,9 @@ export default function BotKnowledge() {
     try {
       await addDocuments(bot.id, Array.from(files));
       toast.success(`${files.length} file${files.length > 1 ? "s" : ""} uploaded`);
-    } catch (err: any) {
-      toast.error(`Upload failed: ${err.message}`);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      toast.error(`Upload failed: ${msg}`);
     } finally {
       setIsUploading(false);
     }
@@ -59,7 +60,7 @@ export default function BotKnowledge() {
       await addTextKnowledge(bot.id, textFilename, textContent);
       setTextContent("");
       setTextFilename("notes.txt");
-    } catch (err: any) {
+    } catch (err: unknown) {
       // toast handled in store
     } finally {
       setIsAddingText(false);
@@ -203,8 +204,9 @@ export default function BotKnowledge() {
                             try {
                               await removeDocument(bot.id, d.id);
                               toast.success("Document removed");
-                            } catch (err: any) {
-                              toast.error(`Failed to remove: ${err.message}`);
+                            } catch (err: unknown) {
+                              const msg = err instanceof Error ? err.message : String(err);
+                              toast.error(`Failed to remove: ${msg}`);
                             }
                           }}
                         >

@@ -1,6 +1,6 @@
 import { useParams, Navigate } from "react-router-dom";
 import { useBots } from "@/store/bots";
-import { PageHeader } from "@/components/PageHeader";
+import { PageHeader } from "@/components/shared/PageHeader";
 import { useRef, useState, useEffect } from "react";
 import { Send, Bot, User, RotateCcw, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -72,21 +72,25 @@ export default function BotChat() {
           
           for (const line of lines) {
             if (line.startsWith("data: ")) {
+              let data;
               try {
-                const data = JSON.parse(line.slice(6));
-                if (data.token) {
-                  accumulatedContent += data.token;
-                  setMessages((p) => 
-                    p.map((m) => (m.id === assistantId ? { ...m, content: accumulatedContent } : m))
-                  );
-                }
-                if (data.full_text) {
-                  setMessages((p) => 
-                    p.map((m) => (m.id === assistantId ? { ...m, content: data.full_text, streaming: false } : m))
-                  );
-                }
+                data = JSON.parse(line.slice(6));
               } catch (e) {
-                // Ignore parse errors for incomplete chunks
+                continue;
+              }
+              if (data.error) {
+                throw new Error(data.error);
+              }
+              if (data.token) {
+                accumulatedContent += data.token;
+                setMessages((p) => 
+                  p.map((m) => (m.id === assistantId ? { ...m, content: accumulatedContent } : m))
+                );
+              }
+              if (data.full_text) {
+                setMessages((p) => 
+                  p.map((m) => (m.id === assistantId ? { ...m, content: data.full_text, streaming: false } : m))
+                );
               }
             }
           }
@@ -96,8 +100,9 @@ export default function BotChat() {
       setMessages((p) => 
         p.map((m) => (m.id === assistantId ? { ...m, streaming: false } : m))
       );
-    } catch (error: any) {
-      toast.error(`Failed to send message: ${error.message}`);
+    } catch (error: unknown) {
+      const msg = error instanceof Error ? error.message : String(error);
+      toast.error(`Failed to send message: ${msg}`);
       setMessages((p) => p.filter((m) => m.id !== assistantId));
     } finally {
       setIsSending(false);
