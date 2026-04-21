@@ -54,7 +54,11 @@ export default function BotChat() {
     setIsSending(true);
 
     try {
-      const response = await api.chat.send(bot.id, userMsg.content);
+      const history = messages
+        .filter((m) => m.id !== "m0") // skip the initial greeting
+        .map((m) => ({ role: m.role, content: m.content }));
+
+      const response = await api.chat.send(bot.id, userMsg.content, history);
       
       if (!response.body) throw new Error("No response body");
       

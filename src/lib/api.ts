@@ -1,4 +1,4 @@
-import { BotOut, BotCreate, BotUpdate, DocumentOut } from "@/types/api";
+import { BotOut, BotCreate, BotUpdate, DocumentOut, BotPublic } from "@/types/api";
 import { supabase } from "./supabase";
 
 const getBaseUrl = () => {
@@ -35,6 +35,7 @@ export const api = {
   bots: {
     list: () => request<BotOut[]>("/bots"),
     get: (id: string) => request<BotOut>(`/bots/${id}`),
+    getPublic: (id: string) => request<BotPublic>(`/bots/${id}/public`, { headers: { "Authorization": "" } }), // Ensure no token is sent if not needed, though request() handle it
     create: (data: BotCreate) =>
       request<BotOut>("/bots", {
         method: "POST",
@@ -85,7 +86,7 @@ export const api = {
       }),
   },
   chat: {
-    send: async (botId: string, message: string) => {
+    send: async (botId: string, message: string, history: { role: string; content: string }[] = []) => {
       const { data: { session } } = await supabase.auth.getSession();
       const token = session?.access_token;
 
@@ -95,16 +96,16 @@ export const api = {
           "Content-Type": "application/json",
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
-        body: JSON.stringify({ message }),
+        body: JSON.stringify({ message, history }),
       });
     },
-    sendPublic: (botId: string, message: string) =>
+    sendPublic: (botId: string, message: string, history: { role: string; content: string }[] = []) =>
       fetch(`${BASE_URL}/bots/${botId}/chat/public`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message }),
+        body: JSON.stringify({ message, history }),
       }),
   },
 };

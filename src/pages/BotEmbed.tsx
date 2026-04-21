@@ -2,7 +2,6 @@ import { useParams, Navigate } from "react-router-dom";
 import { useBots } from "@/store/bots";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { CodeSnippet } from "@/components/shared/CodeSnippet";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MessageSquare, Bot, Loader2 } from "lucide-react";
 
 export default function BotEmbed() {
@@ -33,43 +32,32 @@ export default function BotEmbed() {
   })();
 </script>`;
 
-  const iframeSnippet = `<iframe
-  src="${APP_URL}/bots/${bot.id}/chat/public"
-  width="380"
-  height="600"
-  style="border:0;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.08)"
-  allow="microphone"
-></iframe>`;
-
-  const apiSnippet = `curl ${API_URL}/bots/${bot.id}/chat \\
-  -H "Authorization: Bearer YOUR_API_KEY" \\
-  -H "Content-Type: application/json" \\
-  -d '{"message":"Hello!"}'`;
-
   return (
     <div className="animate-fade-in">
       <PageHeader title={`${bot.name} - Embed`} description="Install your bot anywhere on the web." />
+      
+      {!bot.is_public && (
+        <div className="mx-6 mt-4 rounded-lg border border-warning/50 bg-warning/5 p-4 text-warning-foreground">
+          <div className="flex items-center gap-2 font-semibold">
+            <span className="h-2 w-2 rounded-full bg-warning animate-pulse" />
+            Bot is Private
+          </div>
+          <p className="mt-1 text-sm opacity-90">
+            This bot is currently private. Embeds will not work until you make it public in 
+            <a href={`/bots/${bot.id}/settings`} className="ml-1 underline underline-offset-2">Settings</a>.
+          </p>
+        </div>
+      )}
+
       <div className="px-6 py-6 grid grid-cols-1 gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2">
-          <Tabs defaultValue="script" className="w-full">
-            <TabsList>
-              <TabsTrigger value="script">Script tag</TabsTrigger>
-              <TabsTrigger value="iframe">iFrame</TabsTrigger>
-              <TabsTrigger value="api">API</TabsTrigger>
-            </TabsList>
-            <TabsContent value="script" className="mt-4 space-y-3">
+          <div className="rounded-lg border bg-card p-6 shadow-sm">
+            <h3 className="text-sm font-medium mb-4">Script tag</h3>
+            <div className="space-y-3">
               <p className="text-sm text-muted-foreground">Paste this before your closing <code className="rounded bg-muted px-1">&lt;/body&gt;</code> tag.</p>
               <CodeSnippet code={scriptSnippet} language="html" />
-            </TabsContent>
-            <TabsContent value="iframe" className="mt-4 space-y-3">
-              <p className="text-sm text-muted-foreground">Drop this iframe anywhere in your HTML.</p>
-              <CodeSnippet code={iframeSnippet} language="html" />
-            </TabsContent>
-            <TabsContent value="api" className="mt-4 space-y-3">
-              <p className="text-sm text-muted-foreground">Hit the chat endpoint directly.</p>
-              <CodeSnippet code={apiSnippet} language="bash" />
-            </TabsContent>
-          </Tabs>
+            </div>
+          </div>
         </div>
 
         <div>

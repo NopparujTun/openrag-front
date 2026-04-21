@@ -11,6 +11,7 @@ import BotOverview from "./pages/BotOverview";
 import BotKnowledge from "./pages/BotKnowledge";
 import BotInstructions from "./pages/BotInstructions";
 import BotChat from "./pages/BotChat";
+import BotPublicChat from "./pages/BotPublicChat";
 import BotEmbed from "./pages/BotEmbed";
 import BotSettings from "./pages/BotSettings";
 import Login from "./pages/Login";
@@ -39,6 +40,7 @@ const AuthGuard = ({ children }: { children: React.ReactNode }) => {
 const AppRoutes = () => (
   <Routes>
     <Route path="/login" element={<Login />} />
+    <Route path="/bots/:id/chat/public" element={<BotPublicChat />} />
     <Route
       path="/"
       element={

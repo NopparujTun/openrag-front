@@ -20,6 +20,12 @@ export interface BotOut {
   document_count?: number;
 }
 
+export interface BotPublic {
+  id: string;
+  name: string;
+  is_public: boolean;
+}
+
 export interface BotCreate {
   name: string;
 }
