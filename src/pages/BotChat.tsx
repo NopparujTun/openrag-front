@@ -1,11 +1,11 @@
 import { useParams, Navigate } from "react-router-dom";
-import { useBots } from "@/store/bots";
+import { useBots } from "@/context/BotsContext";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { useRef, useState, useEffect } from "react";
 import { Send, Bot, User, RotateCcw, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { api } from "@/lib/api";
+import { cn } from "@/utils";
+import { botApi as api } from "@/features/bot/services/botApi";
 import { toast } from "sonner";
 
 interface Msg { id: string; role: "user" | "assistant"; content: string; streaming?: boolean }

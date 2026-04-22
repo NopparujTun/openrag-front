@@ -13,7 +13,7 @@ import {
   User as UserIcon,
 } from "lucide-react";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
-import { NavLink } from "@/components/layout/NavLink";
+import { NavLink } from "@/layout/NavLink";
 import {
   Sidebar,
   SidebarContent,
@@ -27,8 +27,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { useBots } from "@/store/bots";
-import { cn } from "@/lib/utils";
+import { useBots } from "@/context/BotsContext";
+import { cn } from "@/utils";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {

@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/shared/PageHeader";
-import { BotCard } from "@/components/bot/BotCard";
-import { CreateBotDialog } from "@/components/bot/CreateBotDialog";
-import { useBots } from "@/store/bots";
+import { BotCard } from "@/features/bot/components/BotCard";
+import { CreateBotDialog } from "@/features/bot/components/CreateBotDialog";
+import { useBots } from "@/context/BotsContext";
 import { Bot, MessageSquare, FileText, TrendingUp, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 

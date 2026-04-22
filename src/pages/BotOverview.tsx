@@ -1,5 +1,5 @@
 import { Link, useParams, Navigate } from "react-router-dom";
-import { useBots } from "@/store/bots";
+import { useBots } from "@/context/BotsContext";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { StatusBadge } from "@/components/shared/StatusBadge";
 import { BookOpen, FileText, MessageSquare, Code2, Settings, ArrowRight, Loader2 } from "lucide-react";

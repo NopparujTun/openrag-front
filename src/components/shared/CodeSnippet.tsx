@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Check, Copy } from "lucide-react";
 import { toast } from "sonner";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils";
 
 export function CodeSnippet({ code, language = "html", className }: { code: string; language?: string; className?: string }) {
   const [copied, setCopied] = useState(false);

@@ -1,9 +1,9 @@
 import { createContext, useContext, ReactNode, useMemo, useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { api } from "@/lib/api";
-import { BotOut, BotUpdate, DocumentOut } from "@/types/api";
+import { botApi as api } from "@/features/bot/services/botApi";
+import { BotOut, BotUpdate, DocumentOut } from "@/features/bot/types/api";
 import { toast } from "sonner";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/api";
 import { Session, User } from "@supabase/supabase-js";
 
 interface BotsContextValue {

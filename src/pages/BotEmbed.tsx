@@ -1,5 +1,5 @@
 import { useParams, Navigate } from "react-router-dom";
-import { useBots } from "@/store/bots";
+import { useBots } from "@/context/BotsContext";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { CodeSnippet } from "@/components/shared/CodeSnippet";
 import { MessageSquare, Bot, Loader2 } from "lucide-react";

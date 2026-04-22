@@ -1,6 +1,6 @@
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { ChevronRight, ArrowLeft } from "lucide-react";
-import { useBots } from "@/store/bots";
+import { useBots } from "@/context/BotsContext";
 import { Button } from "@/components/ui/button";
 
 function useCrumbs() {

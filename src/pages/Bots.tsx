@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { PageHeader } from "@/components/shared/PageHeader";
-import { BotCard } from "@/components/bot/BotCard";
-import { CreateBotDialog } from "@/components/bot/CreateBotDialog";
-import { useBots } from "@/store/bots";
+import { BotCard } from "@/features/bot/components/BotCard";
+import { CreateBotDialog } from "@/features/bot/components/CreateBotDialog";
+import { useBots } from "@/context/BotsContext";
 import { Input } from "@/components/ui/input";
 import { Search, Loader2 } from "lucide-react";
 import { EmptyState } from "@/components/shared/EmptyState";

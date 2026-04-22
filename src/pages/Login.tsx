@@ -1,4 +1,4 @@
-import { useBots } from "@/store/bots";
+import { useBots } from "@/context/BotsContext";
 import { Button } from "@/components/ui/button";
 import { Bot, LogIn } from "lucide-react";
 import { Navigate } from "react-router-dom";

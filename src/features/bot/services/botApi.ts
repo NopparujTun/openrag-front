@@ -1,41 +1,11 @@
-import { BotOut, BotCreate, BotUpdate, DocumentOut, BotPublic } from "@/types/api";
-import { supabase } from "./supabase";
+import { request, BASE_URL, supabase } from "@/api";
+import { BotOut, BotCreate, BotUpdate, DocumentOut, BotPublic } from "../types/api";
 
-const getBaseUrl = () => {
-  const rawBase = import.meta.env.VITE_API_URL || "http://localhost:8000";
-  return rawBase.replace(/\/+$/, "");
-};
-
-const BASE_URL = getBaseUrl();
-
-async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
-  const { data: { session } } = await supabase.auth.getSession();
-  const token = session?.access_token;
-
-  const headers = {
-    "Content-Type": "application/json",
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    ...options.headers,
-  };
-
-  const response = await fetch(`${BASE_URL}${path}`, {
-    ...options,
-    headers,
-  });
-
-  if (!response.ok) {
-    const error = await response.json().catch(() => ({ detail: "Unknown error" }));
-    throw new Error(error.detail || response.statusText);
-  }
-
-  return response.json();
-}
-
-export const api = {
+export const botApi = {
   bots: {
     list: () => request<BotOut[]>("/bots"),
     get: (id: string) => request<BotOut>(`/bots/${id}`),
-    getPublic: (id: string) => request<BotPublic>(`/bots/${id}/public`, { headers: { "Authorization": "" } }), // Ensure no token is sent if not needed, though request() handle it
+    getPublic: (id: string) => request<BotPublic>(`/bots/${id}/public`, { headers: { "Authorization": "" } }),
     create: (data: BotCreate) =>
       request<BotOut>("/bots", {
         method: "POST",
@@ -90,7 +60,7 @@ export const api = {
       const { data: { session } } = await supabase.auth.getSession();
       const token = session?.access_token;
 
-      return fetch(`${BASE_URL}/bots/${botId}/chat`, {
+      const response = await fetch(`${BASE_URL}/bots/${botId}/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -98,14 +68,29 @@ export const api = {
         },
         body: JSON.stringify({ message, history }),
       });
+
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({ detail: "Chat request failed" }));
+        throw new Error(error.detail || response.statusText);
+      }
+
+      return response;
     },
-    sendPublic: (botId: string, message: string, history: { role: string; content: string }[] = []) =>
-      fetch(`${BASE_URL}/bots/${botId}/chat/public`, {
+    sendPublic: async (botId: string, message: string, history: { role: string; content: string }[] = []) => {
+      const response = await fetch(`${BASE_URL}/bots/${botId}/chat/public`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ message, history }),
-      }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({ detail: "Chat request failed" }));
+        throw new Error(error.detail || response.statusText);
+      }
+
+      return response;
+    },
   },
 };

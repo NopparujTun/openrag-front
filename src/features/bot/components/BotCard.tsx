@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { BotOut } from "@/types/api";
+import { BotOut } from "@/features/bot/types/api";
 import { StatusBadge } from "@/components/shared/StatusBadge";
 import { Bot as BotIcon, FileText, Clock } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";

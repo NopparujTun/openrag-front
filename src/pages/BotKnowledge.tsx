@@ -1,5 +1,5 @@
 import { useParams, Navigate } from "react-router-dom";
-import { useBots, useBotDocuments } from "@/store/bots";
+import { useBots, useBotDocuments } from "@/context/BotsContext";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { useRef, useState } from "react";
 import { Upload, FileText, Trash2, FileType2, Loader2, Type } from "lucide-react";
@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { toast } from "sonner";
 import { EmptyState } from "@/components/shared/EmptyState";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils";
 import { formatDistanceToNow } from "date-fns";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";

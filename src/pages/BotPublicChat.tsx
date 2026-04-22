@@ -2,9 +2,9 @@ import { useParams } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
 import { Send, Bot, User, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { api } from "@/lib/api";
-import { BotPublic } from "@/types/api";
+import { cn } from "@/utils";
+import { botApi as api } from "@/features/bot/services/botApi";
+import { BotPublic } from "@/features/bot/types/api";
 
 interface Msg { id: string; role: "user" | "assistant"; content: string; streaming?: boolean }
 
@@ -112,6 +112,10 @@ export default function BotPublicChat() {
           }
         }
       }
+
+      setMessages((p) =>
+        p.map((m) => (m.id === assistantId ? { ...m, streaming: false } : m))
+      );
     } catch (error) {
       console.error(error);
       setMessages((p) => 

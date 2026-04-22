@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils";
 
 type Variant = "ready" | "missing" | "processing" | "failed" | "neutral";
 

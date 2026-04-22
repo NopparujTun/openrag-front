@@ -1,5 +1,5 @@
 import { useParams, Navigate } from "react-router-dom";
-import { useBots } from "@/store/bots";
+import { useBots } from "@/context/BotsContext";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
